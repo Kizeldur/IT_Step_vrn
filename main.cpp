@@ -44,9 +44,11 @@ int main()
                 break;
             case 5:
                 break;
-            case 6:
+            case '6':
+                ImportToFile(students);
                 break;
-            case 7:
+            case '7':
+                ExportFromFile(students);
                 break;
             case 0:
                 flagExit = true;
