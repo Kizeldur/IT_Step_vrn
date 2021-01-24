@@ -84,3 +84,39 @@ void InsertStudent(vector<Student>& students)
 
     students.push_back(temp);
 }
+
+void ImportToFile(vector<Student> students) {
+    string adress;
+    ofstream file;
+    cout << "Please, Enter The Adress Of File" << endl;
+    cin >> adress;
+    file.open(adress, ios_base::trunc);
+    if (students.empty()) {
+        cout << "The list of Students is Empty. Please, add some students first." << endl;
+    } else if (file.is_open()) {
+        WriteToFile(adress, students, file);
+        cout << "Recording is successful" << endl;
+    }
+    else {
+        cout << "There is no such file. Please try again" << endl;
+    }
+    file.close();
+}
+
+void ExportFromFile(vector<Student>& students) {
+    Student student;
+    ifstream file;
+    string adress;
+    string someShit;
+    cout << "Please, Enter The Adress Of File" << endl;
+    cin >> adress;
+
+    file.open(adress);
+    if (file.is_open()) {
+        ReadFromFile(adress, students, file);
+        cout << "Adding students list from file is successful" << endl;
+    }
+    else {
+        cout << "There is no such file. Please try again" << endl;
+    }
+    file.close();
