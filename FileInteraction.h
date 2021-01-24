@@ -36,16 +36,16 @@ void ReadFromFile(string adress, vector<Student>& students) {
         getline(file_2, someShit, ';');
         student.birthDay.day = stoi(someShit);
         getline(file_2, someShit, ';');
-        if (someShit == "мужской") {
+        if (someShit == "РјСѓР¶СЃРєРѕР№") {
             student.sex = Sex::Male;
-        } else if (someShit == "женский") {
+        } else if (someShit == "Р¶РµРЅСЃРєРёР№") {
             student.sex = Sex::Female;
         }
         else {
             student.sex = Sex::Other;
         }
         getline(file_2, someShit, ';');
-        if (someShit == "Разработка ПО") {
+        if (someShit == "Р Р°Р·СЂР°Р±РѕС‚РєР° РџРћ") {
             student.faculty = Faculty::SoftDev;
         }
         else {
@@ -53,7 +53,7 @@ void ReadFromFile(string adress, vector<Student>& students) {
         }
         getline(file_2, student.group, ';');
         getline(file_2, someShit, ';');
-        if (someShit == "учится") {
+        if (someShit == "СѓС‡РёС‚СЃСЏ") {
             student.isStudy = true;
         }
         else {
