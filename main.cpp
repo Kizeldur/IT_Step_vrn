@@ -45,10 +45,10 @@ int main()
             case 5:
                 break;
             case '6':
-                ImportToFile(students);
+                ExportToFile(students);
                 break;
             case '7':
-                ExportFromFile(students);
+                ImportFromFile(students);
                 break;
             case 0:
                 flagExit = true;
