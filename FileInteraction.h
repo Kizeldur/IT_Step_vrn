@@ -9,33 +9,29 @@
 #include "Faculty.h"
 
 
-void WriteToFile(string adress, vector<Student> students) {
-    ofstream file_1;
-    file_1.open(adress, ios_base::trunc);
+void WriteToFile(vector<Student> students, ofstream& file) {
 
     for (Student student: students) {
-        file_1 << student.firstName << ";" << student.lastName << ";" << student.birthDay.year << '.' << student.birthDay.month << '.' << student.birthDay.day << ';' << SexToString(student.sex) << ";" << FacultyToString(student.faculty) << ";" << student.group << ";" << student.IsStudyToString() << endl;
+        file << student.firstName << ";" << student.lastName << ";" << student.birthDay.year << '.' << student.birthDay.month << '.' << student.birthDay.day << ';' << SexToString(student.sex) << ";" << FacultyToString(student.faculty) << ";" << student.group << ";" << student.IsStudyToString() << endl;
     }
 
-    file_1.close();
 }
 
-void ReadFromFile(string adress, vector<Student>& students) {
+void ReadFromFile(vector<Student>& students, ifstream& file) {
     Student student;
     string someShit;
  
-    ifstream file_2;
-    file_2.open(adress);
-    if (file_2.is_open()) {
-        getline(file_2, student.firstName, ';');
-        getline(file_2, student.lastName, ';');
-        getline(file_2, someShit, '.');
+   
+   while(!file.eof()) {
+        getline(file, student.firstName, ';');
+        getline(file, student.lastName, ';');
+        getline(file, someShit, '.');
         student.birthDay.year = stoi(someShit);
-        getline(file_2, someShit, '.');
+        getline(file, someShit, '.');
         student.birthDay.month = stoi(someShit);
-        getline(file_2, someShit, ';');
+        getline(file, someShit, ';');
         student.birthDay.day = stoi(someShit);
-        getline(file_2, someShit, ';');
+        getline(file, someShit, ';');
         if (someShit == "мужской") {
             student.sex = Sex::Male;
         } else if (someShit == "женский") {
@@ -44,26 +40,24 @@ void ReadFromFile(string adress, vector<Student>& students) {
         else {
             student.sex = Sex::Other;
         }
-        getline(file_2, someShit, ';');
+        getline(file, someShit, ';');
         if (someShit == "Разработка ПО") {
             student.faculty = Faculty::SoftDev;
         }
         else {
             student.faculty = Faculty::Design;
         }
-        getline(file_2, student.group, ';');
-        getline(file_2, someShit, ';');
+        getline(file, student.group, ';');
+        getline(file, someShit);
         if (someShit == "учится") {
             student.isStudy = true;
         }
         else {
             student.isStudy = false;
         }
+
+        students.push_back(student);
     }
-    file_2.close();
-
-    students.push_back(student);
-
 }
 
 
