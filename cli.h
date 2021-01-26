@@ -85,7 +85,7 @@ void InsertStudent(vector<Student>& students)
     students.push_back(temp);
 }
 
-void ImportToFile(vector<Student> students) {
+void ExportToFile(vector<Student> students) {
     string adress;
     ofstream file;
     cout << "Please, Enter The Adress Of File" << endl;
@@ -94,7 +94,7 @@ void ImportToFile(vector<Student> students) {
     if (students.empty()) {
         cout << "The list of Students is Empty. Please, add some students first." << endl;
     } else if (file.is_open()) {
-        WriteToFile(adress, students, file);
+        WriteToFile(students, file);
         cout << "Recording is successful" << endl;
     }
     else {
@@ -103,7 +103,7 @@ void ImportToFile(vector<Student> students) {
     file.close();
 }
 
-void ExportFromFile(vector<Student>& students) {
+void ImportFromFile(vector<Student>& students) {
     Student student;
     ifstream file;
     string adress;
@@ -112,11 +112,15 @@ void ExportFromFile(vector<Student>& students) {
     cin >> adress;
 
     file.open(adress);
-    if (file.is_open()) {
-        ReadFromFile(adress, students, file);
+    if (file.is_open() && file.peek() == -1) {
+        cout << "File is empty. Please, try again" << endl;
+    } 
+    else if (file.is_open() && file.peek() != -1) {
+        ReadFromFile(students, file);
         cout << "Adding students list from file is successful" << endl;
     }
     else {
         cout << "There is no such file. Please try again" << endl;
     }
     file.close();
+}
